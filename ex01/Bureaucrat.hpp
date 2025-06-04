@@ -35,7 +35,8 @@ public:
     const std::string  getName() const ;   
     int  getGrade() const ; 
     void incGrade() ;    
-    void decGrade() ;   
+    void decGrade() ;    
+    void signForm( Form &F   ) ;    
 }; 
  
 

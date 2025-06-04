@@ -1,5 +1,6 @@
 #include "Bureaucrat.hpp"  
-
+#include "Form.hpp" 
+#include <iostream> 
 
 /**
  * @brief Returns a C-string describing the "Grade Too High" exception.
@@ -79,4 +80,9 @@ void Bureaucrat::incGrade()
 std::ostream& operator<<(std::ostream& a, const Bureaucrat& b) { 
      a << b.getName() << ", bureaucrat grade " << b.getGrade() << "\n";   
      return a;  
+}  
+
+void Bureaucrat::signForm(Form &F   ) 
+{  
+    (F.isSigned())?std::cout<<"signed\n":std::cerr<<"Not Signed [Reason: ]"<<reason<<std::endl ;    
 }

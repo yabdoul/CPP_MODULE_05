@@ -11,4 +11,4 @@ int main()
     Bureaucrat b3("b3" , 0 )   ; 
     b3.incGrade() ;        
     return  0 ;   
-}
+ } ;  
