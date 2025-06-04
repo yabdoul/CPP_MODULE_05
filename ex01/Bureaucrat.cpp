@@ -10,9 +10,9 @@
  *
  * @return const char* A pointer to a null-terminated string with the error message.
  */
-const char  *  GradeToHighException::what() const   noexcept
+ const char*   GradeToHighException::what() const  noexcept
 {  
-  return   std::to_string(_grade ).append(": [Grade To High ]").c_str() ;   
+   return  _reason.c_str() ;   
 } ;     
  
 /**
@@ -24,21 +24,21 @@ const char  *  GradeToHighException::what() const   noexcept
  * @return const char* A pointer to a C-string describing the exception.
  * @note The returned pointer may become invalid because it points to a temporary string.
  */
-const char  *  GradeToLowException::what() const  noexcept
-{  
-  return   std::to_string(_grade ).append(": [Grade To Low ]\n").c_str() ;   
-} ;     
+ const char*   GradeToLowException::what() const  noexcept
+{ 
+  return _reason.c_str()  ;  
+} 
 
-Bureaucrat::Bureaucrat(std::string Name  ,  int Grade   ) : _Name(Name),_Grade(Grade){ 
+Bureaucrat::Bureaucrat(std::string  Name    ,  int  Grade ): _Name(Name),_Grade(Grade){ 
      try{
           if  (_Grade <  1  )  
               throw GradeToHighException(_Grade) ;  
           else if(_Grade > 150  )  
               throw GradeToLowException(_Grade ) ;   
      } 
-     catch(std::exception e   ) 
+     catch(std::exception &e   ) 
       { 
-        std::cerr<<e.what() ;  
+        std::cout<<e.what() ;  
       } ;  
 } ;   
 
@@ -51,14 +51,32 @@ const std::string Bureaucrat::getName() const
     return _Name  ;   
 } ;    
 
-void Bureaucrat::decGrade() 
+void Bureaucrat::decGrade()  
 { 
-    try  
-    ( 
-          if(_Grade  +  1  > 150 )  
-                throw GradeToHighException(_Grade  +   1  )   ;  
-    )
-    catch(std::exception &e ) { 
+   try
+   {
+    (_Grade + 1 >  150  ) ?  throw GradeToLowException(_Grade + 1 ): _Grade += 1  ;     
+   }
+   catch( std::exception &e  )
+   {
+      std::cerr << e.what() ;  
+   }
+} 
+ 
 
+void Bureaucrat::incGrade() 
+{ 
+    try
+    {
+      (_Grade - 1 < 1  ) ?  throw GradeToHighException(_Grade - 1 ): _Grade -= 1  ;     
     }
+    catch(std::exception &e  )
+    {   
+      std::cerr << e.what() ;
+    }  
 }  
+
+std::ostream& operator<<(std::ostream& a, const Bureaucrat& b) { 
+     a << b.getName() << ", bureaucrat grade " << b.getGrade() << "\n";   
+     return a;  
+}
