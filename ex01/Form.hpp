@@ -1,6 +1,7 @@
-#include <string> 
-#include "Bureaucrat.hpp"  
-
+#pragma once 
+#include <string>   
+ 
+class Bureaucrat ;  
 class Form
 {
 private:
@@ -17,6 +18,17 @@ public:
     int getSignGrade()  const ;  
     int getExecuteGrade() const  ;  
     bool isSigned() const  ;   
-    void beSigned(Bureaucrat &B  )  ;  
+    void beSigned(Bureaucrat &B  )  ;   
+
+    class GradeToLowException : public std::exception   
+    { 
+      private : 
+           std::string  _reason  ;   
+        public :  
+            GradeToLowException(  )  {  _reason    = ": [Grade To Low ]\n" ;   } ;    
+             ~GradeToLowException() throw() {} ;      
+            virtual const char*  what() const  throw()    ;    
+
+    } ; 
     
-}; 
+};   
