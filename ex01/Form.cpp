@@ -1,8 +1,9 @@
 #include "Form.hpp"  
 #include <iostream> 
 #include "Bureaucrat.hpp"
-Form::Form(std::string  name , int signGrade ,  int executeGrade ):_name(name),_signGrade(signGrade),_executeGrade(executeGrade) 
-{  
+Form::Form(std::string  name , int signGrade ,  int executeGrade ):_name(name),_signGrade(signGrade),_executeGrade(executeGrade)
+{   
+    _signed = false ;   
     std::cout<<"Form Constructor Called\n" ;   
 }  
  
@@ -35,20 +36,22 @@ const std::string Form::getName() const
 bool Form::isSigned() const  
 { 
      return  _signed ;   
-}   
+}
+
 const char * Form::GradeToLowException::what() const  throw()
 { 
     return _reason.c_str() ;   
 }
+
 void  Form::beSigned(Bureaucrat &B  ) 
 {  
     try{  
-        if(B.getGrade() >= _signGrade )  
-        { 
-            B.signForm(*this )  ;   
+        if(B.getGrade() <=  _signGrade )  
+        {   
             _signed = true ;    
+            B.signForm(*this )  ;   
         }  
-        else if(B.getGrade() < _signGrade)
+        else if(B.getGrade() > _signGrade)
             { 
                 B.signForm(*this , "[Grade To Low]") ;   
                 throw Form::GradeToLowException();  

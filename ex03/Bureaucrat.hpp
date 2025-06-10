@@ -1,7 +1,7 @@
 #pragma once 
 #include <exception>  
 #include <iostream>
-#include "Form.hpp" 
+#include "AForm.hpp" 
 #include <unistd.h> 
 
 
@@ -17,8 +17,8 @@ public:
     int  getGrade() const ; 
     void incGrade() ;    
     void decGrade() ;    
-    void signForm(Form const  &F , std::string reason  ="" )   ;  
-    void executeForm(Form const & form)  ;  
+    void signForm(AForm &F , std::string reason  ="" )   ;  
+  
 
     class GradeToHighException : public std::exception   
 { 

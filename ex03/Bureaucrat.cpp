@@ -80,21 +80,8 @@ std::ostream& operator<<(std::ostream& a, const Bureaucrat& b) {
      return a;  
 }  
 
-void Bureaucrat::signForm(Form const  &F , std::string reason  )  
+void Bureaucrat::signForm(AForm &F , std::string reason  )  
 {   
   
-   (F.isSigned()) ?(std::cout<<_Name<<" signed "<<std::endl):(std::cout<<_Name<<" couldn't sign "<<F.getName()<<"because"<<reason<<std::endl) ;     
-}   
-
-void Bureaucrat::executeForm(Form const   &form  ) 
-{    
-    try { 
-         signForm(form) ; 
-         
-        }   
-    catch(std::exception &e ) 
-      { 
-         std::cerr<<e.what() ;  
-      }
-    
+   (F.isSigned()) ?(std::cout<<_Name<<" Signed the Form "<<F.getName()<<std::endl):(std::cout<<_Name<<" couldn't sign "<<F.getName()<<"because"<<reason<<std::endl) ;     
 }

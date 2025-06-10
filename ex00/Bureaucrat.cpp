@@ -1,5 +1,6 @@
 #include "Bureaucrat.hpp"  
-#include <iostream> 
+
+
 /**
  * @brief Returns a C-string describing the "Grade Too High" exception.
  *
@@ -8,8 +9,8 @@
  * descriptive message indicating that the grade is too high.
  *
  * @return const char* A pointer to a null-terminated string with the error message.
- */ 
- const char*   Bureaucrat::GradeToHighException::what() const   throw()
+ */
+ const char*   GradeToHighException::what() const  noexcept
 {  
    return  _reason.c_str() ;   
 } ;     
@@ -23,7 +24,7 @@
  * @return const char* A pointer to a C-string describing the exception.
  * @note The returned pointer may become invalid because it points to a temporary string.
  */
- const char*    Bureaucrat::GradeToLowException::what() const  throw()
+ const char*   GradeToLowException::what() const  noexcept
 { 
   return _reason.c_str()  ;  
 } 
@@ -31,9 +32,9 @@
 Bureaucrat::Bureaucrat(std::string  Name    ,  int  Grade ): _Name(Name),_Grade(Grade){ 
      try{
           if  (_Grade <  1  )  
-              throw GradeToHighException() ;  
+              throw GradeToHighException(_Grade) ;  
           else if(_Grade > 150  )  
-              throw GradeToLowException() ;   
+              throw GradeToLowException(_Grade ) ;   
      } 
      catch(std::exception &e   ) 
       { 
@@ -54,7 +55,7 @@ void Bureaucrat::decGrade()
 { 
    try
    {
-    (_Grade + 1 >  150  ) ?  throw GradeToLowException(): _Grade += 1  ;     
+    (_Grade + 1 >  150  ) ?  throw GradeToLowException(_Grade + 1 ): _Grade += 1  ;     
    }
    catch( std::exception &e  )
    {
@@ -67,7 +68,7 @@ void Bureaucrat::incGrade()
 { 
     try
     {
-      (_Grade - 1 < 1  ) ?  throw GradeToHighException(): _Grade -= 1  ;     
+      (_Grade - 1 < 1  ) ?  throw GradeToHighException(_Grade - 1 ): _Grade -= 1  ;     
     }
     catch(std::exception &e  )
     {   
@@ -76,25 +77,6 @@ void Bureaucrat::incGrade()
 }  
 
 std::ostream& operator<<(std::ostream& a, const Bureaucrat& b) { 
-     a << b.getName() << ", bureaucrat grade " << b.getGrade() << "\n";   
+     a << b.getName() << ", bureaucrate grade " << b.getGrade() << "\n";   
      return a;  
-}  
-
-void Bureaucrat::signForm(Form const  &F , std::string reason  )  
-{   
-  
-   (F.isSigned()) ?(std::cout<<_Name<<" signed "<<std::endl):(std::cout<<_Name<<" couldn't sign "<<F.getName()<<"because"<<reason<<std::endl) ;     
-}   
-
-void Bureaucrat::executeForm(Form const   &form  ) 
-{    
-    try { 
-         signForm(form) ; 
-         
-        }   
-    catch(std::exception &e ) 
-      { 
-         std::cerr<<e.what() ;  
-      }
-    
 }
