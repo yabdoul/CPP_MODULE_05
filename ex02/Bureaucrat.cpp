@@ -80,8 +80,10 @@ std::ostream& operator<<(std::ostream& a, const Bureaucrat& b) {
      return a;  
 }  
 
-void Bureaucrat::signForm(AForm &F , std::string reason  )  
-{   
-  
-   (F.isSigned()) ?(std::cout<<_Name<<" Signed the Form "<<F.getName()<<std::endl):(std::cout<<_Name<<" couldn't sign "<<F.getName()<<"because"<<reason<<std::endl) ;     
+void Bureaucrat::signForm(AForm &F )  
+{    
+  if(F.isSigned()) 
+     std::runtime_error("Already Signed\n")  ;  
+  else 
+       F.beSigned(*this ) ;  
 }

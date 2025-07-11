@@ -49,39 +49,37 @@ void  AForm::beSigned(Bureaucrat &B  )
     try{  
         if(B.getGrade() <=  _signGrade )  
         {   
-            _signed = true ;    
-            B.signForm(*this )  ;   
+            std::cout<<" "<<B.getName()<<" Signed "<<_name<<std::endl ;   
+            _signed = true ;            
         }  
         else if(B.getGrade() > _signGrade)
-            { 
-                B.signForm(*this , "[Grade To Low]") ;   
                 throw AForm::GradeToLowException();  
-            } 
         } 
         catch(std::exception& e )  
         {  
             std::cerr<<e.what()<<std::endl;   
         } 
- 
-}  ;  
 
+}  ;  
 void AForm::setSigned() 
 {  
     _signed = true   ;   
 }  ;    
  
-   
+void  AForm::action() const
+{ 
+    std::cout<<"Standard Form Action"<<std::endl ;  
+}
+
 void AForm::executeForm(Bureaucrat &executor ) 
 {   
-    try {  
-          beSigned(executor)  ;  
-          if(executor.getGrade() > _executeGrade )    
-          {     
-            std::cerr<<"------------Can't Execute Form [Reason] :------------"<<std::endl ;    
-            throw GradeToLowException() ;  
-          } 
-             else 
-            this->action()  ;     
+    try {   
+        if(!isSigned())  
+          throw std::runtime_error("Form not Signed\n") ;   
+        if(executor.getGrade() >  _executeGrade )  
+            throw AForm::GradeToLowException()   ;    
+        action() ; 
+        std::cout<<executor.getName()<<" Executed Form "<<_name<<" Succefully "<<std::endl ;   
     } 
     catch(std::exception   &e ) 
      {  
@@ -89,3 +87,4 @@ void AForm::executeForm(Bureaucrat &executor )
      }
 }  ;   
 
+  

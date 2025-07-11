@@ -17,7 +17,7 @@ public:
     int  getGrade() const ; 
     void incGrade() ;    
     void decGrade() ;    
-    void signForm(AForm &F , std::string reason  ="" )   ;  
+    void signForm(AForm &F )   ;  
   
 
     class GradeToHighException : public std::exception   

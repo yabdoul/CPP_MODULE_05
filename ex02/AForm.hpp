@@ -22,7 +22,7 @@ public:
     void setSigned( ) ;   
     void beSigned(Bureaucrat &B  )  ;   
     virtual void executeForm(Bureaucrat &executor )  ;     
-    virtual  void action() const    = 0 ;   
+    virtual  void action() const    = 0  ;   
     class GradeToLowException : public std::exception   
     { 
       private : 

@@ -1,24 +1,14 @@
 #include "RobotomyRequestForm.hpp"
 #include "Bureaucrat.hpp"   
-
+#include <math.h>  
 
 
  
-void RobotomyRequestForm::informTarget(Bureaucrat &B ) 
-{      
-    try {    
-        if(B.getGrade() >  getExecuteGrade())  
-            {   
-                std::cout<<"Robotonomy Failed"<<std::endl ;  
-                throw GradeToLowException() ;  
-            }   
-        else 
-            { 
-                std::cout<<_target<<" has been robotomized succefully 50% of the time"<<std::endl ;   
-            }
-    } 
-    catch(std::exception &e )  
-    {  
-         std::cerr<<e.what() ;   
-    }
-}  ;  
+void RobotomyRequestForm::action( )  const 
+{   
+    std::cout<<"Drilling Noise ---------------------------------"<<std::endl ;   
+    srand(time(0)) ;   
+    int random  = rand() % 2  ;  
+    (random == 1 )?(std::cout<<_target<<" Has been robotomized successfully"<<std::endl)
+                  :(std::cout<<"The robotomy failed."<<std::endl );  
+}  ;    

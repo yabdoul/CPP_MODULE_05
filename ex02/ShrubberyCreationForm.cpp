@@ -29,9 +29,3 @@ void ShrubberyCreationForm::action () const
 		}
 		_file.close();
  }  ;
-
-AForm* ShrubberyCreationForm::createInstance(std::string Name, std::string Target)
-{
-    AForm* Inst = new ShrubberyCreationForm(Target);
-    return Inst;
-}

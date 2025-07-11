@@ -6,8 +6,9 @@
 
 int main() 
 {    
-    ShrubberyCreationForm sh("me") ;  
-    Bureaucrat b("ysf" ,  140 )    ;   
+    RobotomyRequestForm sh("vcme") ;  
+    Bureaucrat b("ysf" ,  2)   ; 
+    b.signForm(sh) ;     
     sh.executeForm(b) ;   
     return 0 ;   
 }
